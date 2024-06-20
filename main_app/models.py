@@ -7,3 +7,6 @@ class Item(models.Model):
     description = models.TextField(max_length=250)
     quantity_current = models.IntegerField()
     quantity_max = models.IntegerField()
+
+    def __str__(self):
+        return self.name

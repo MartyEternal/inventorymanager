@@ -4,18 +4,20 @@
 <h1>Inventory List</h1>
 
 {% for item in inventory %}
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ item.name }}</span>
-      <p>Item Type: {{ item.type }}</p>
-      <p>Description: {{ item.description }}</p>
-      {% if item.quantity_current > 5 %}
-        <p>Quantity: {{ item.quantity_current }}</p>
-      {% else %}
-        <p>There are only <span style="color: red">{{ item.quantity_current }}</span> remaining. Please restock.</p>
-      {% endif %}
-    </div>
-  </div>
+<div class="card">
+    <a href="{% url 'detail' item.id %}">
+        <div class="card-content">
+            <span class="card-title">{{ item.name }}</span>
+            <p>Item Type: {{ item.type }}</p>
+            <p>Description: {{ item.description }}</p>
+            {% if item.quantity_current > 5 %}
+            <p>Quantity: {{ item.quantity_current }}</p>
+            {% else %}
+            <p>There are only <span style="color: red">{{ item.quantity_current }}</span> remaining. Please restock.</p>
+            {% endif %}
+        </div>
+    </a>
+</div>
 {% endfor %}
 
 {% endblock %}

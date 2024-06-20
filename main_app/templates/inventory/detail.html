@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Item Details</h1>
+
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ item.name }}</span>
+        <p>Type: {{ item.type }}</p>
+        <p>Description: {{ item.description|linebreaks }}</p>
+        {% if item.quantity_current > 5 %}
+        <p>Quantity: {{ item.quantity_current }}</p>
+        {% else %}
+        <p>There are only <span style="color: red">{{ item.quantity_current }}</span> remaining. Please restock.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

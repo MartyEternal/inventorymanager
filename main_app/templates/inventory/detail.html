@@ -14,6 +14,10 @@
         <p>There are only <span style="color: red">{{ item.quantity_current }}</span> remaining. Please restock.</p>
         {% endif %}
     </div>
+    <div class="card-action">
+        <a href="{% url 'inventory_update' item.id %}">Edit</a>
+        <a href="{% url 'inventory_delete' item.id %}">Delete</a>
+      </div>
 </div>
 
 {% endblock %}

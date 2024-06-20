@@ -13,12 +13,3 @@ footer.page-footer {
     text-align: right;
 }
 
-.card {
-    background-color: white;
-    transition: background-color 0.5s;
-}
-
-.card:hover {
-    background-color: lightgrey;
-    transition: background-color 0.5s;
-}

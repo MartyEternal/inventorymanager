@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Item
 
 # inventory = [
@@ -7,6 +8,18 @@ from .models import Item
 # ]
 
 # Create your views here.
+class ItemCreate(CreateView):
+    model = Item
+    fields = '__all__'
+
+class ItemUpdate(UpdateView):
+  model = Item
+  fields = ['type', 'description', 'quantity_current', 'quantity_max']
+
+class ItemDelete(DeleteView):
+  model = Item
+  success_url = '/inventory'
+
 def home(request):
     return render(request, 'home.html')
 

@@ -34,3 +34,5 @@ This application will be most useful in smaller to medium-sized businesses wanti
 - **Johnny Bui**: Scrum Master / Database Manager
 - **Kiran Ravula**: Designer / Support Scrum Master
 - **Marty Lau**: GitHub Manager
+
+Hello everyone!

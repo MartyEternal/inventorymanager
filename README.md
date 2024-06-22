@@ -35,4 +35,4 @@ This application will be most useful in smaller to medium-sized businesses wanti
 - **Kiran Ravula**: Designer / Support Scrum Master
 - **Marty Lau**: GitHub Manager
 
-hello everyone!
+Hello everyone!

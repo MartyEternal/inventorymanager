@@ -21,9 +21,20 @@
         </ul>
         <ul class="right">
 
-          <li><a href="{% url 'about' %}">Features</a></li>
+          <li><a href="#" class="dropdown">Features</a></li>
+          <div class="dropdown-content">
+            <a href="{% url 'about' %}">About</a>
+            <a href="#">Contact</a>
+          </div>
+          <li><a href="#">Pricing</a></li>
+
           {% if user.is_authenticated %}
 
+          <li><a href="#" class="dropdown">Support</a></li>
+          <div class="dropdown-content">
+            <a href="#">Knowledge Base</a>
+            <a href="#">FAQs</a>
+          </div>
           <li><a href="{% url 'item_create' %}">Add an Item</a></li>
           <li><a href="{% url 'item' %}">View My Inventory</a></li>
           <li class="nav-item">

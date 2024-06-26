@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Item Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ item.name }}</span>
+    {% if item.quantity_current > item.quantity_min %}
+    <p>Quantity: {{ item.quantity_current }}</p>
+    {% else %}
+    <p>There
+      {% if item.quantity_current == 1 %}
+      is
+      {% else %}
+      are
+      {% endif %}
+      only <span style="color: red">{{ item.quantity_current }}</span> remaining. Please restock.</p>
+    {% endif %}
+    <p>Minimum Quantity: {{ item.quantity_min }}</p>
+    <p>Maximum Quantity: {{ item.quantity_max }}</p>
+    <p>Description: {{ item.description|linebreaks }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'items_update' item.id %}">Edit</a>
+    <a href="{% url 'items_delete' item.id %}">Delete</a>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col s6">
+    <h3>{{ item.name }}'s Categories</h3>
+    {% if item.categories.count %}
+    {% for category in item.categories.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          {{ item.name }} belongs to {{ category.name }}
+        </span>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>No Categories</h5>
+    {% endif %}
+  </div>
+  <!-- Available categories will come after this line -->
+</div>
+
+{% endblock %}

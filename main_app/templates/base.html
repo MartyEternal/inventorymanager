@@ -20,8 +20,7 @@
           <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;Inventory Management System</a></li>
         </ul>
         <ul class="right">
-
-          <li ><a href="#" class="dropdown">Features</a></li>
+          <li><a href="#" class="dropdown">Features</a></li>
           <div class="dropdown-content">
             <a href="{% url 'about' %}">About</a>
             <a href="#">Contact</a>
@@ -35,8 +34,10 @@
             <a href="#">Knowledge Base</a>
             <a href="#">FAQs</a>
           </div>
-          <li><a href="{% url 'item_create' %}">Add an Item</a></li>
-          <li><a href="{% url 'item' %}">View My Inventory</a></li>
+          <li><a href="{% url 'categories_index' %}">Categories</a></li>
+          <li><a href="{% url 'categories_create' %}">Add a Category</a></li>
+          <li><a href="{% url 'items_create' %}">Add an Item</a></li>
+          <li><a href="{% url 'index' %}">View My Inventory</a></li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
           </li>
@@ -50,7 +51,7 @@
   </header>
   <main class="container">
     {% block content %}
-    
+
     {% endblock %}
   </main>
   <footer class="page-footer">

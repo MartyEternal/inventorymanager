@@ -1,11 +1,12 @@
-<!-- {% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
 {% if object %}
 <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
 {% else %}
-<h1>Add Item</h1>
+<h1>Add Category</h1>
 {% endif %}
+
 <form action="" method="POST">
     {% csrf_token %}
     <table>
@@ -14,4 +15,4 @@
     <input type="submit" value="Submit!" class="btn">
 </form>
 
-{% endblock %} -->
+{% endblock %}

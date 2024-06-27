@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Item
+from .models import Item, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -12,20 +12,20 @@ from django.contrib.auth.decorators import login_required
 # ]
 
 # Create your views here.
-@login_required
-class ItemCreate(CreateView):
-    model = Item
-    fields = '__all__'
+# @login_required
+# class ItemCreate(CreateView):
+#     model = Item
+#     fields = ['name', 'quantity_current', 'quantity_max', 'description']
 
-@login_required
-class ItemUpdate(UpdateView):
-  model = Item
-  fields = ['type', 'description', 'quantity_current', 'quantity_max']
+# # @login_required
+# class ItemUpdate(UpdateView):
+#   model = Item
+#   fields = ['quantity_current', 'quantity_min', 'quantity_max', 'description']
 
-@login_required
-class ItemDelete(DeleteView):
-  model = Item
-  success_url = '/item'
+# # @login_required
+# class ItemDelete(DeleteView):
+#   model = Item
+#   success_url = '/items'
 
 # def home(request):
 #     return render(request, 'home.html')
@@ -33,17 +33,17 @@ class ItemDelete(DeleteView):
 def about(request):
     return render(request, 'about.html')
 
-@login_required
-def item_index(request):
-    item = Item.objects.all()
-    return render(request, 'item/index.html', {
-        'item': item
-    })
+# @login_required
+# def items_index(request):
+#     items = Item.objects.all()
+#     return render(request, 'items/index.html', {
+#         'items': items
+#     })
 
-@login_required
-def item_detail(request, item_id):
-    item = Item.objects.get(id=item_id)
-    return render(request, 'item/detail.html', { 'item': item })
+# # @login_required
+# def items_detail(request, item_id):
+#     item = Item.objects.get(id=item_id)
+#     return render(request, 'items/detail.html', { 'item': item })
 
 def home(request):
     items = Item.objects.all()
@@ -66,3 +66,26 @@ def logout_user(request):
     logout(request)
     messages.success(request, 'You have been logged out')
     return redirect('home')
+
+# categories stuff
+def categories_index(request):
+    categories = Category.objects.all()
+    return render(request, 'categories/index.html', {
+        'categories': categories
+    })
+
+def categories_detail(request, category_id):
+    category = Category.objects.get(id=category_id)
+    return render(request, 'categories/detail.html', { 'category': category })
+
+class CategoryCreate(CreateView):
+    model = Category
+    fields = '__all__'
+
+class CategoryUpdate(UpdateView):
+    model = Category
+    fields = '__all__'
+
+class CategoryDelete(DeleteView):
+    model = Category
+    success_url = '/categories'

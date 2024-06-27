@@ -1,14 +1,20 @@
-<!-- {% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
+<h3 class="m-4">Delete Item</h3>
+<div class="card bg-light ms-4 me-4 mb-4">
 
-<h1>Delete Item</h1>
+  <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+    
+    <p>
+      Are you sure you want to delete
+      <span class="teal-text">{{ object.name }}</span> from your inventory?
+    </p>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="Yes - Delete!" class="btn btn-danger" />
+      <a class="btn btn btn-info" href="{% url 'home' %}">Cancel</a>
+    </form>
+  </div>
+</div>
 
-<h4>Are you sure you want to delete <span class="teal-text">{{ object.name }}</span> from your inventory?</h4>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-    <a href="{% url 'detail' item.id %}">Cancel</a>
-</form>
-
-{% endblock %} -->
+{% endblock %}

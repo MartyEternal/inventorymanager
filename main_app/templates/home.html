@@ -38,17 +38,17 @@
                     <td>{{ item.quantity_current }}</td>
                     <td>{{ item.quantity_max }}</td>
                     <td>
-                        <a class="btn btn btn-info" href="{% url 'item_update' item.id %}">
+                        <a class="btn btn btn-info" href="">
                           <i class="fa-solid fa-eye fa-lg"></i>
                         </a>
                       </td>
                     <td>
-                      <a class="btn btn-warning me-1" href="{% url 'item_update' item.id %}">
+                      <a class="btn btn-warning me-1" href="{% url 'items_update' item.id %}">
                         <i class="fa-solid fa-pen-to-square fa-lg"></i>
                       </a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="{% url 'item_delete' item.id %}">
+                        <a class="btn btn-danger" href="{% url 'items_delete' item.id %}">
                           <i class="fa-solid fa-trash-can fa-lg"></i>
                         </a>
                       </td>

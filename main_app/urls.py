@@ -11,9 +11,7 @@ urlpatterns = [
     path('categories/create/', views.CategoryCreate.as_view(), name='categories_create'),
     path('categories/<int:pk>/update/', views.CategoryUpdate.as_view(), name='categories_update'),
     path('categories/<int:pk>/delete/', views.CategoryDelete.as_view(), name='categories_delete'),
-    path('item/', views.item_index, name='item'),
-    path('item/<int:item_id>/', views.item_detail, name='detail'),
-    path('item/create/', views.ItemCreate, name='item_create'),
-    path('item/<int:pk>/update/', views.ItemUpdate.as_view(), name='item_update'),
-    path('item/<int:pk>/delete/', views.ItemDelete.as_view(), name='item_delete'),  
+    path('items/create/', views.ItemCreate.as_view(), name='items_create'),  
+    path('items/<int:pk>/update/', views.ItemUpdate.as_view(), name='items_update'),
+    path('items/<int:pk>/delete/', views.ItemDelete.as_view(), name='items_delete'),  
 ]

@@ -59,10 +59,15 @@ class CategoryUpdate(UpdateView):
 class CategoryDelete(DeleteView):
     model = Category
     success_url = '/categories'
+    
+class ItemCreate(CreateView):
+    model = Item
+    fields = ['name', 'description', 'quantity_current','quantity_max']
+    success_url = '/'
 
 class ItemUpdate(UpdateView):
   model = Item
-  fields = ['type', 'description', 'quantity_current','quantity_max']
+  fields = ['name', 'description', 'quantity_current','quantity_max']
 
 class ItemDelete(DeleteView):
   model = Item

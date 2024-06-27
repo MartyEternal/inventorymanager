@@ -13,19 +13,19 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 # @login_required
-class ItemCreate(CreateView):
-    model = Item
-    fields = ['name', 'quantity_current', 'quantity_max', 'description']
+# class ItemCreate(CreateView):
+#     model = Item
+#     fields = ['name', 'quantity_current', 'quantity_max', 'description']
 
-# @login_required
-class ItemUpdate(UpdateView):
-  model = Item
-  fields = ['quantity_current', 'quantity_min', 'quantity_max', 'description']
+# # @login_required
+# class ItemUpdate(UpdateView):
+#   model = Item
+#   fields = ['quantity_current', 'quantity_min', 'quantity_max', 'description']
 
-# @login_required
-class ItemDelete(DeleteView):
-  model = Item
-  success_url = '/items'
+# # @login_required
+# class ItemDelete(DeleteView):
+#   model = Item
+#   success_url = '/items'
 
 # def home(request):
 #     return render(request, 'home.html')
@@ -34,16 +34,16 @@ def about(request):
     return render(request, 'about.html')
 
 # @login_required
-def items_index(request):
-    items = Item.objects.all()
-    return render(request, 'items/index.html', {
-        'items': items
-    })
+# def items_index(request):
+#     items = Item.objects.all()
+#     return render(request, 'items/index.html', {
+#         'items': items
+#     })
 
-# @login_required
-def items_detail(request, item_id):
-    item = Item.objects.get(id=item_id)
-    return render(request, 'items/detail.html', { 'item': item })
+# # @login_required
+# def items_detail(request, item_id):
+#     item = Item.objects.get(id=item_id)
+#     return render(request, 'items/detail.html', { 'item': item })
 
 def home(request):
     items = Item.objects.all()

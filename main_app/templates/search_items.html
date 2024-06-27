@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="col-md-6">
+  <h1>Search</h1>
+</div>
+<br>
+{% if searched %}
+<h2>{{ searched }}</h2>
+<br>
+{% for item in item %}
+<div class="card">
+  <div class="card-header">
+    <a href="">Item:</a>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+    <ul>
+      {% if item.name %}
+      <li>{{ item.name}}</li>
+      {% endif %}
+      {% if item.description %}
+      <li>{{ item.description }}</li>
+      {% endif %}
+      {% if item.quantity_current %}
+      <li>{{ item.quantity_current }}</li>
+      {% endif %}
+      {% if item.quantity_max %}
+      <li>{{ item.quantity_max }}</li>
+      {% endif %}
+    </ul>
+    </p>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p>Please use the search bar to search.</p>
+  {% endif %}
+  {% endif %}
+  {% endblock %}

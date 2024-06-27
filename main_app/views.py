@@ -73,3 +73,16 @@ class ItemDelete(DeleteView):
   model = Item
   success_url = '/'
 
+def search_items(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            searched = request.POST['searched']
+            items = Item.objects.filter(name__contains=searched)
+            print(items)
+            print(searched)
+            return render(request, 'search_items.html', {'searched':searched, 'item': items})
+        else:
+            return render (request, 'search_items.html', {})
+    else:
+        messages.success(request, 'You need to be logged in to search')
+        return render('home')

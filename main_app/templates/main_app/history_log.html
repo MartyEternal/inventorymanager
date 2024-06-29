@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>History Log</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Item</th>
+      <th>Category</th>
+      <th>User</th>
+      <th>Description</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for log in history %}
+      <tr>
+        <td>{{ log.date_log }}</td>
+        <td>{{ log.item.name }}</td>
+        <td>{{ log.category.name }}</td>
+        <td>{{ log.user.username }}</td>
+        <td>{{ log.description }}</td>
+        <td>{{ log.quantity }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -1,19 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Item, Category
+from .models import Item, Category, HistoryLog
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-
-
-
+# main stuff
 def about(request):
     return render(request, 'about.html')
-
-
-
-
 
 def home(request):
     items = Item.objects.all()
@@ -59,19 +54,52 @@ class CategoryUpdate(UpdateView):
 class CategoryDelete(DeleteView):
     model = Category
     success_url = '/categories'
-    
+
+# item stuff    
 class ItemCreate(CreateView):
     model = Item
     fields = ['name', 'description', 'quantity_current','quantity_max']
     success_url = '/'
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        HistoryLog.objects.create(
+            item=self.object,
+            category=self.object.categories.first(),
+            user=self.request.user,
+            description=f"Item '{self.object.name}' was added.",
+            quantity=self.object.quantity_current
+        )
+        return response
+
 class ItemUpdate(UpdateView):
   model = Item
   fields = ['name', 'description', 'quantity_current','quantity_max']
 
+  def form_valid(self, form):
+        response = super().form_valid(form)
+        HistoryLog.objects.create(
+            item=self.object,
+            category=self.object.categories.first(),
+            user=self.request.user,
+            description=f"Item '{self.object.name}' was updated.",
+            quantity=self.object.quantity_current
+        )
+        return response
+
 class ItemDelete(DeleteView):
   model = Item
   success_url = '/'
+
+  def delete(self, request, *args, **kwargs):
+      item = self.get_object()
+      HistoryLog.objects.create(
+          item=item,
+          user=request.user,
+          description=f"Item '{item.name}' was deleted.",
+          quantity=item.quantity_current
+      )
+      return super().delete(request, *args, **kwargs)
 
 def search_items(request):
     if request.user.is_authenticated:
@@ -93,10 +121,37 @@ def items_details(request, item_id):
     categories_item_doesnt_have = Category.objects.exclude(id__in=id_list)
     return render(request, 'items/detail.html', {'item':item, 'categories':categories_item_doesnt_have})
 
+# association stuff
 def assoc_category(request, item_id, category_id):
-    Item.objects.get(id=item_id).categories.add(category_id)
+    item = get_object_or_404(Item, id=item_id)
+    category = get_object_or_404(Category, id=category_id)
+    item.categories.add(category)
+    # Item.objects.get(id=item_id).categories.add(category_id)
+    HistoryLog.objects.create(
+        item=item,
+        category=category,
+        user=request.user,
+        description=f"'{item.name}' has been filed under '{category.name}'.",
+        quantity=item.quantity_current
+    )
     return redirect('detail',item_id=item_id)
 
 def unassoc_category(request, item_id, category_id):
-    Item.objects.get(id=item_id).categories.remove(category_id)
+    item = get_object_or_404(Item, id=item_id)
+    category = get_object_or_404(Category, id=category_id)
+    item.categories.remove(category)
+    # Item.objects.get(id=item_id).categories.add(category_id)
+    HistoryLog.objects.create(
+        item=item,
+        category=category,
+        user=request.user,
+        description=f"'{item.name}' has been removed from '{category.name}'.",
+        quantity=item.quantity_current
+    )
     return redirect('detail',item_id=item_id)
+
+# history log stuff
+# @login_required
+def history_log(request):
+    history = HistoryLog.objects.all()
+    return render(request, 'main_app/history_log.html', {'history': history})

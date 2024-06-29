@@ -85,7 +85,7 @@ class ItemCreate(CreateView):
             item=self.object,
             category=category,
             user=self.request.user,
-            description=f"Item '{self.object.name}' was added.",
+            description=f"[Item] '{self.object.name}' was added.",
             quantity=self.object.quantity_current
         )
         return response
@@ -101,7 +101,7 @@ class ItemUpdate(UpdateView):
             item=self.object,
             category=category,
             user=self.request.user,
-            description=f"Item '{self.object.name}' was updated.",
+            description=f"[Item] '{self.object.name}' was updated.",
             quantity=self.object.quantity_current
         )
         return response
@@ -116,10 +116,11 @@ class ItemDelete(DeleteView):
       HistoryLog.objects.create(
           item=item,
           user=request.user,
-          description=f"Item '{item.name}' was deleted.",
+          description=f"[Item] '{item.name}' was deleted.",
           quantity=item.quantity_current
       )
-      return super().delete(request, *args, **kwargs)
+      response = super().delete(request, *args, **kwargs)
+      return response
 
 def search_items(request):
     if request.user.is_authenticated:

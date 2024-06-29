@@ -77,7 +77,7 @@ def search_items(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             searched = request.POST['searched']
-            items = Item.objects.filter(name__contains=searched)
+            items = Item.objects.filter(name__icontains=searched)
             print(items)
             print(searched)
             return render(request, 'search_items.html', {'searched':searched, 'item': items})

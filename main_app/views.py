@@ -63,9 +63,10 @@ class ItemCreate(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        category = self.object.categories.first() if self.object.categories.exists() else None
         HistoryLog.objects.create(
             item=self.object,
-            category=self.object.categories.first(),
+            category=category,
             user=self.request.user,
             description=f"Item '{self.object.name}' was added.",
             quantity=self.object.quantity_current
@@ -74,13 +75,14 @@ class ItemCreate(CreateView):
 
 class ItemUpdate(UpdateView):
   model = Item
-  fields = ['name', 'description', 'quantity_current','quantity_max']
+  fields = ['name', 'description', 'quantity_current', 'quantity_min','quantity_max']
 
   def form_valid(self, form):
         response = super().form_valid(form)
+        category = self.object.categories.first() if self.object.categories.exists() else None
         HistoryLog.objects.create(
             item=self.object,
-            category=self.object.categories.first(),
+            category=category,
             user=self.request.user,
             description=f"Item '{self.object.name}' was updated.",
             quantity=self.object.quantity_current
@@ -93,6 +95,7 @@ class ItemDelete(DeleteView):
 
   def delete(self, request, *args, **kwargs):
       item = self.get_object()
+      # category = item.categories.first() if item.categories.exists() else None
       HistoryLog.objects.create(
           item=item,
           user=request.user,
@@ -151,7 +154,6 @@ def unassoc_category(request, item_id, category_id):
     return redirect('detail',item_id=item_id)
 
 # history log stuff
-# @login_required
 def history_log(request):
     history = HistoryLog.objects.all()
     return render(request, 'main_app/history_log.html', {'history': history})

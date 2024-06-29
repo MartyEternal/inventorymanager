@@ -86,3 +86,17 @@ def search_items(request):
     else:
         messages.success(request, 'You need to be logged in to search')
         return render('home')
+    
+def items_details(request, item_id):
+    item = Item.objects.get(id=item_id)
+    id_list = item.categories.all().values_list('id')
+    categories_item_doesnt_have = Category.objects.exclude(id__in=id_list)
+    return render(request, 'items/detail.html', {'item':item, 'categories':categories_item_doesnt_have})
+
+def assoc_category(request, item_id, category_id):
+    Item.objects.get(id=item_id).categories.add(category_id)
+    return redirect('detail',item_id=item_id)
+
+def unassoc_category(request, item_id, category_id):
+    Item.objects.get(id=item_id).categories.remove(category_id)
+    return redirect('detail',item_id=item_id)

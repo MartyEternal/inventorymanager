@@ -11,8 +11,15 @@ urlpatterns = [
     path('categories/create/', views.CategoryCreate.as_view(), name='categories_create'),
     path('categories/<int:pk>/update/', views.CategoryUpdate.as_view(), name='categories_update'),
     path('categories/<int:pk>/delete/', views.CategoryDelete.as_view(), name='categories_delete'),
+
+    
+    # items stuff
+    path('items/<int:item_id>/', views.items_details, name='detail'),  
     path('items/create/', views.ItemCreate.as_view(), name='items_create'),  
     path('items/<int:pk>/update/', views.ItemUpdate.as_view(), name='items_update'),
     path('items/<int:pk>/delete/', views.ItemDelete.as_view(), name='items_delete'),  
+    path('items/<int:item_id>/assoc_category/<int:category_id>/', views.assoc_category, name='assoc_category'),
+    path('items/<int:item_id>/unassoc_category/<int:category_id>/', views.unassoc_category, name='unassoc_category'),
+    # search bar
     path('search_items/', views.search_items, name='search_items'),
 ]

@@ -32,7 +32,7 @@ This application will be most useful in smaller to medium-sized businesses wanti
 - [Trello Board](https://trello.com/b/IqYfTffg/inventory-management-system)
 - [Pitch Deck](placeholder-link)
 - ![ERD](/main_app/images/ERD.png)
-- ![Wireframe] (/main_app/images/Wireframe.png)
+- ![Wireframe](/main_app/images/Wireframe.png)
 
 ## Next Steps
 

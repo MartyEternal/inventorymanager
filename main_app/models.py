@@ -28,3 +28,13 @@ class Item(models.Model):
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'item_id': self.id})
+    
+class HistoryLog(models.Model):
+    date_log = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(max_length=300)
+    quantity = models.IntegerField()
+
+    def __str__(self):
+        return self.date_log
+    
+    

@@ -11,6 +11,9 @@ from django.utils.decorators import method_decorator
 def about(request):
     return render(request, 'about.html')
 
+def pricing(request):
+    return render(request, 'pricing.html')
+
 def register_user(request):
     if request.method == 'POST':
         form = SignUpForm((request.POST))

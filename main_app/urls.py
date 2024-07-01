@@ -21,6 +21,10 @@ urlpatterns = [
     path('items/<int:pk>/delete/', views.ItemDelete.as_view(), name='items_delete'),  
     path('items/<int:item_id>/assoc_category/<int:category_id>/', views.assoc_category, name='assoc_category'),
     path('items/<int:item_id>/unassoc_category/<int:category_id>/', views.unassoc_category, name='unassoc_category'),
+    
     # search bar
     path('search_items/', views.search_items, name='search_items'),
+
+    # history log
+    path('history_log/', views.history_log, name='history_log'),
 ]

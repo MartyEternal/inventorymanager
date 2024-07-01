@@ -28,3 +28,15 @@ class Item(models.Model):
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'item_id': self.id})
+    
+class HistoryLog(models.Model):
+    date_log = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(max_length=300)
+    quantity = models.IntegerField()
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f'{self.date_log} - {self.item.name}'
+    

@@ -29,4 +29,6 @@ urlpatterns = [
 
     # history log
     path('history_log/', views.history_log, name='history_log'),
+    path('change_quantity/', views.change_quantity, name='change_quantity'),
+    path('quantity_log/', views.quantity_log, name='quantity_log'),
 ]

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Item, Category, HistoryLog
+from .models import Item, Category, HistoryLog, QuantityLog
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm
+from .forms import SignUpForm, QuantityChangeForm
 from django.utils.decorators import method_decorator
 
 # main stuff
@@ -178,3 +178,22 @@ def unassoc_category(request, item_id, category_id):
 def history_log(request):
     history = HistoryLog.objects.all()
     return render(request, 'main_app/history_log.html', {'history': history})
+
+def change_quantity(request):
+    if request.method == "POST":
+        form = QuantityChangeForm(request.POST)
+        if form.is_valid():
+            quantity_log = form.save(commit=False)
+            item = quantity_log.item
+            item.quantity_current =+ quantity_log.change
+            item.save()
+            quantity_log.user = request.user
+            quantity_log.save()
+            return redirect('quantity_log')
+    else:
+        form = QuantityChangeForm()
+    return render(request, 'main_app/change_quantity.html', { 'form': form })
+
+def quantity_log(request):
+    logs = QuantityLog.objects.all().order_by('-date_log')
+    return render(request, 'main_app/quantity_log.html', { 'logs': logs })

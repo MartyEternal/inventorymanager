@@ -126,16 +126,15 @@ class ItemDelete(DeleteView):
       response = super().delete(request, *args, **kwargs)
       return response
 
-def search_items(request):
+def search(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             searched = request.POST['searched']
             items = Item.objects.filter(name__icontains=searched)
-            print(items)
-            print(searched)
-            return render(request, 'search_items.html', {'searched':searched, 'item': items})
+            categories = Category.objects.filter(name__icontains=searched)
+            return render(request, 'search.html', {'searched':searched, 'item': items, 'category': categories})
         else:
-            return render (request, 'search_items.html', {})
+            return render (request, 'search.html', {})
     else:
         messages.success(request, 'You need to be logged in to search')
         return render('home')

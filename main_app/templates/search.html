@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if user.is_authenticated %}
+
+<br>
 <div class="col-md-6">
   <h1>Search</h1>
 </div>
@@ -11,7 +13,7 @@
 {% for item in item %}
 <div class="card">
   <div class="card-header">
-    <a href="">Item:</a>
+    <a href="{% url 'detail' item.id %}">Item:</a>
   </div>
   <div class="card-body">
     <p class="card-text">
@@ -32,9 +34,29 @@
     </p>
   </div>
   {% endfor %}
-  {% else %}
-  <p>Please use the search bar to search.</p>
-  {% endif %}
-  {% endif %}
+
+  {% for category in category %}
+  <div class="card">
+    <div class="card-header">
+      <a href="{% url 'categories_detail' category.id %}">Category:</a>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+      <ul>
+        {% if category.name %}
+        <li>{{ category.name}}</li>
+        {% endif %}
+        {% if category.description %}
+        <li>{{ category.description }}</li>
+        {% endif %}
+      </ul>
+      </p>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>Please use the search bar to search.</p>
+    {% endif %}
+    {% endif %}
+  </div>
 </div>
-{% endblock %}
+  {% endblock %}

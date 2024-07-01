@@ -140,10 +140,37 @@ def search(request):
         return render('home')
     
 def items_details(request, item_id):
-    item = Item.objects.get(id=item_id)
+    # item = Item.objects.get(id=item_id)
+    item = get_object_or_404(Item, id=item_id)
     id_list = item.categories.all().values_list('id')
     categories_item_doesnt_have = Category.objects.exclude(id__in=id_list)
-    return render(request, 'items/detail.html', {'item':item, 'categories':categories_item_doesnt_have})
+    last_quantity_changes = QuantityLog.objects.filter(item=item).order_by('-date_log')[:5]
+
+    for log in last_quantity_changes:
+        previous_logs = QuantityLog.objects.filter(item=item, date_log__lt=log.date_log).order_by('-date_log')
+        log.previous_count = previous_logs[0].change if previous_logs.exists() else item.quantity_current - log.change
+
+    if request.method == 'POST':
+        form = QuantityChangeForm(request.POST)
+        if form.is_valid():
+            quantity_log = form.save(commit=False)
+            quantity_log.item = item
+            quantity_log.user = request.user
+            quantity_log.previous_count = item.quantity_current
+            item.quantity_current += quantity_log.change
+            item.save()
+            quantity_log.save()
+            return redirect('detail', item_id=item_id)
+    
+    else:
+        form = QuantityChangeForm()
+
+    return render(request, 'items/detail.html', {
+        'item':item, 
+        'categories':categories_item_doesnt_have, 
+        'last_quantity_changes': last_quantity_changes, 
+        'form': form,
+    })
 
 # association stuff
 def assoc_category(request, item_id, category_id):

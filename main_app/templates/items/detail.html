@@ -41,7 +41,7 @@
       <div class="card-action">
         <form action="{% url 'unassoc_category' item.id category.id %}" method="POST">
           {% csrf_token %}
-          <button type="submit" class="btn">Remove</button>
+          <button type="submit" class="btn btn-danger">Remove</button>
         </form>
       </div>
     </div>
@@ -51,24 +51,24 @@
   </div>
 </div>
 
-  <div class="col s6">
-    <h3>Available Categories</h3>
-    {% if categories.count %} {% for category in categories.all %}
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">
-          {{category.name}}
-        </span>
-      </div>
-      <form action="{% url 'assoc_category' item.id category.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn">Add</button>
-      </form>
+<div class="col s6">
+  <h3>Available Categories</h3>
+  {% if categories.count %} {% for category in categories.all %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">
+        {{category.name}}
+      </span>
     </div>
-    {% endfor %} {% else %}
-    <h5>{{item.name}} Already Has All Categories Available</h5>
-    {% endif %}
+    <form action="{% url 'assoc_category' item.id category.id %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-info">Add</button>
+    </form>
   </div>
+  {% endfor %} {% else %}
+  <h5>{{item.name}} Already Has All Categories Available</h5>
+  {% endif %}
+</div>
 </div>
 
 {% endblock %}

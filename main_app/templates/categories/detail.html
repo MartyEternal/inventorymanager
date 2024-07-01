@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Category Details</h1>
+<h3>Category Details</h3>
 
 <div class="card">
     <div class="card-content">
@@ -10,8 +10,8 @@
 
     </div>
     <div class="card-action">
-        <a href="{% url 'categories_update' category.id %}">Edit</a>
-        <a href="{% url 'categories_delete' category.id %}">Delete</a>
+        <a class="btn btn-warning" href="{% url 'categories_update' category.id %}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'categories_delete' category.id %}">Delete</a>
     </div>
 </div>
 

@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Categories List</h1>
+<h3>Categories List</h3>
 
 {% for category in categories %}
 <div class="card">
-    <a href="{% url 'categories_detail' category.id %}">
-        <div class="card-content">
-            <span class="card-title">{{ category.name }}</span>
-            <p>Description: {{ category.description|linebreaks }}</p>
+    <a href="{% url 'categories_detail' category.id %}"></a>
+    <div class="card-content">
+        <span class="card-title">{{ category.name }}</span>
+        <p>Description: {{ category.description|linebreaks }}</p>
 
-        </div>
-    </a>
+    </div>
+
 </div>
 
 {% endfor %}

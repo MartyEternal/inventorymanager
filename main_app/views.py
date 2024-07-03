@@ -14,6 +14,9 @@ def about(request):
 def pricing(request):
     return render(request, 'pricing.html')
 
+def contact(request):
+    return render(request, 'contact.html')
+
 def register_user(request):
     if request.method == 'POST':
         form = SignUpForm((request.POST))

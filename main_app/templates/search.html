@@ -13,7 +13,7 @@
 {% for item in item %}
 <div class="card">
   <div class="card-header">
-    <a href="{% url 'detail' item.id %}">Item:</a>
+    <a href="{% url 'detail' item.id %}">View Item</a>
   </div>
   <div class="card-body">
     <p class="card-text">
@@ -38,7 +38,7 @@
   {% for category in category %}
   <div class="card">
     <div class="card-header">
-      <a href="{% url 'categories_detail' category.id %}">Category:</a>
+      <a href="{% url 'categories_detail' category.id %}">View Category</a>
     </div>
     <div class="card-body">
       <p class="card-text">

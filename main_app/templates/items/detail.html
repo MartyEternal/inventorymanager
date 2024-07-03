@@ -3,113 +3,171 @@
 
 <h3>Item Details</h3>
 
-<div class="row">
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ item.name }}</span>
-      {% if item.quantity_current > item.quantity_min %}
-      <p>Quantity: {{ item.quantity_current }}</p>
-      {% else %}
-      <p>
-        There {% if item.quantity_current == 1 %} is {% else %} are {% endif %}
-        only
-        <span style="color: red">{{ item.quantity_current }}</span> remaining.
-        Please restock.
-      </p>
-      {% endif %}
-      <p>Minimum Quantity: {{ item.quantity_min }}</p>
-      <p>Maximum Quantity: {{ item.quantity_max }}</p>
-      <p>Description: {{ item.description|linebreaks }}</p>
-    </div>
+
+<div class="card">
+  <div class="card-header"> <span class="card-title"><b>{{ item.name }}</b></span>
+
+  </div>
+  <div class="card-body">
+
+    <p>Item Name: {{ item.name }}</p>
+
+    {% if item.quantity_current > item.quantity_min %}
+    <p>Quantity: {{ item.quantity_current }}</p>
+    {% else %}
+    <p>
+      There {% if item.quantity_current == 1 %} is {% else %} are {% endif %}
+      only
+      <span style="color: red">{{ item.quantity_current }}</span> remaining.
+      Please restock.
+    </p>
+    {% endif %}
+    <p>Minimum Quantity: {{ item.quantity_min }}</p>
+    <p>Maximum Quantity: {{ item.quantity_max }}</p>
+    <p>Description: {{ item.description|linebreaks }}</p>
     <div class="card-action">
-      <a class="btn btn-warning" href="{% url 'items_update' item.id %}">Edit</a>
+      <a class="btn btn-warning" href="{% url 'items_update' item.id %}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
       <a class="btn btn-danger" href="{% url 'items_delete' item.id %}">Delete</a>
 
-      <div class="col s6">
-        <h3>Change Quantity</h3>
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit" class="btn">Change Quantity</button>
-        </form>
-      </div>
     </div>
   </div>
+</div>
+
+<div class="col s6">
+  <h3>Change Quantity</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Change Quantity</button>
+  </form>
+</div>
+</div>
+</div>
 
 
-  <!-- Quantity Tracker per Item -->
-  <div class="col s6">
-    <h3>Recent Quantity Changes</h3>
-    {% if last_quantity_changes %}
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Previous Count</th>
-          <th>Current Count</th>
-          <th>User</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for log in last_quantity_changes %}
-        <tr>
-          <td>{{ log.date_log }}</td>
-          <td>{{ log.previous_count }}</td>
-          <td>{{ log.change }}</td>
-          <td>{{ log.user.username }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <p>No recent quantity changes.</p>
-    {% endif %}
-  </div>
+<!-- Quantity Tracker per Item -->
+<div class="col s6">
+  <h3>Recent Quantity Changes</h3>
+  {% if last_quantity_changes %}
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Previous Count</th>
+        <th>Current Count</th>
+        <th>User</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in last_quantity_changes %}
+      <tr>
+        <td>{{ log.date_log }}</td>
+        <td>{{ log.previous_count }}</td>
+        <td>{{ log.change }}</td>
+        <td>{{ log.user.username }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No recent quantity changes.</p>
+  {% endif %}
+</div>
 </div>
 
 <hr />
-
-<div class="row">
-  <div class="col s6">
-    <h3>{{ item.name }}'s Categories</h3>
-    {% if item.categories.count %} {% for category in item.categories.all %}
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">
-          {{item.name}} belongs to {{category.name }}
-        </span>
-      </div>
-      <div class="card-action">
-        <form action="{% url 'unassoc_category' item.id category.id %}" method="POST">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-danger">Remove</button>
-        </form>
-      </div>
-    </div>
-    {% endfor %} {% else %}
-    <h5>No categories</h5>
-    {% endif %}
+<div class="text-center">
+  <div class="alert alert-primary" role="alert">
+    <h4>Categories for Item : {{ item.name }}</h4>
   </div>
-
-
-  <div class="col s6">
-    <h3>Available Categories</h3>
-    {% if categories.count %} {% for category in categories.all %}
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">
-          {{category.name}}
-        </span>
-      </div>
-      <form action="{% url 'assoc_category' item.id category.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-info">Add</button>
-      </form>
-    </div>
-  </div>
-  {% endfor %} {% else %}
-  <h5>{{item.name}} Already Has All Categories Available</h5>
-  {% endif %}
 </div>
+
+
+
+<div class="row row-cols-1 row-cols-md-2 mb-2 text-center border-primary">
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+      <div class="card-header py-3 text-white bg-primary border-primary">
+        <h5 class="my-0 fw-normal">Tagged </h5>
+      </div>
+
+      <div class="card-body">
+        {% if item.categories.count %}
+        <div class="table-responsive ">
+          <table class="table table-hover">
+            <thead>
+
+              <tr>
+                <th scope="col">category</th>
+                <th scope="col">Untag</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for category in item.categories.all %}
+              <tr>
+                <td>{{category.name }}</td>
+                <td>
+                  <a class="btn btn-danger me-1" href="{% url 'unassoc_category' item.id category.id %}">
+                    <i class="fa-solid fa-tags fa-lg"></i>
+                  </a>
+                </td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% else %}
+        <h5 class="alert alert-primary ms-4 me-4">No Item Records to display</h5>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+      <div class="card-header py-3 text-white bg-primary border-primary">
+        <h5 class="my-0 fw-normal">Available to be Tagged </h5>
+      </div>
+
+      <div class="card-body">
+        {% if categories.count %}
+        <div class="table-responsive ">
+          <table class="table table-hover">
+            <thead>
+
+              <tr>
+                <th scope="col">category</th>
+                <th scope="col">Tag</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for category in categories.all %}
+              <tr>
+                <td>{{category.name }}</td>
+                <td>
+                  <a class="btn btn-success me-1" href="{% url 'assoc_category' item.id category.id %}">
+                    <i class="fa-solid fa-user-tag fa-lg"></i>
+                  </a>
+                </td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% else %}
+      <h5 class="alert alert-primary ms-4 me-4">No Item Records to display</h5>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
 
 {% endblock %}

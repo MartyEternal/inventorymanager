@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-
+</br>
 <h3>Category Details</h3>
 
+
 <div class="card">
-    <div class="card-content">
-        <span class="card-title">{{ category.name }}</span>
-        <p>Description: {{ category.description|linebreaks }}</p>
+    <div class="card-header"> <span class="card-title"><b>{{ category.name }}</b></span>
 
     </div>
-    <div class="card-action">
-        <a class="btn btn-warning" href="{% url 'categories_update' category.id %}">Edit</a>
-        <a class="btn btn-danger" href="{% url 'categories_delete' category.id %}">Delete</a>
+    <div class="card-body">
+
+        <p>Category Name: {{ category.name }}</p>
+
+        <p>Category Description: {{ category.description }}</p>
+        <div class="card-action">
+            <a class="btn btn-warning" href="{% url 'categories_update' category.id %}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-danger" href="{% url 'categories_delete' category.id %}">Delete</a>
+
+        </div>
     </div>
 </div>
-
-
-
 {% endblock %}

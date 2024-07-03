@@ -4,19 +4,18 @@ The Inventory Management System is designed to streamline and optimize the proce
 
 This application will be most useful in smaller to medium-sized businesses wanting to better improve the management of their inventory/stock levels. It will be a tool that keeps everything accurate and up-to-date.
 
-## Screenshot(s)
+## Screenshot
 
-![placeholder-image](path-to-image)
+![placeholder-image](/main_app/images/screenshot.png)
 
 ## Technologies Used
 
 - Django
 - PostgreSQL
 - HTML/CSS
+- JavaScript
 - Python
 - Render
-- Trello
-- Excalidraw
 
 ## Getting Started
 
@@ -28,19 +27,25 @@ This application will be most useful in smaller to medium-sized businesses wanti
 
 ### Links
 
-- [Inventory Management System](placeholder-link)
-- [Trello Board](https://trello.com/b/IqYfTffg/inventory-management-system)
-- [Pitch Deck](placeholder-link)
-- ![ERD](/main_app/images/ERD.png)
-- ![Wireframe](/main_app/images/Wireframe.png)
+### Application
+[Inventory Management System](placeholder-link)
 
-## Next Steps
+### Trello 
+[Trello Board](https://trello.com/b/IqYfTffg/inventory-management-system)
 
-- placeholder-text
+### Pitch
+[Pitch Deck](https://docs.google.com/presentation/d/1XSIbl1Hr54n2zDG5ZjBkSWPB4qZqo8Ivx8nMgGMCkJc/edit#slide=id.p)
+
+### ERD
+![ERD](/main_app/images/ERD.png)
+
+### Wireframe
+![Wireframe](/main_app/images/Wireframe.png)
+
 
 ## Team Members and Roles
 
-- **Jackson Raymond**: Presenter / Documenter
-- **Johnny Bui**: Scrum Master / Database Manager
-- **Kiran Ravula**: Designer / Support Scrum Master
-- **Marty Lau**: GitHub Manager
+- **Jackson Raymond**: Presenter / Documenter / Full Stack Engineer
+- **Johnny Bui**: Scrum Master / Database Manager / Backend Engineer
+- **Kiran Ravula**: Designer / Support Scrum Master / Frontend Engineer
+- **Marty Lau**: GitHub Manager / Full Stack Engineer

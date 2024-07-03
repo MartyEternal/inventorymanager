@@ -1,19 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
+<h3 class="m-4">All categories in your inventory</h3>
+<div class="row">
+  <div class="col-12">
+    {% if categories %}
+    <div class="card bg-light ms-4 me-4 mb-4">
+      <div class="card-header">
+        <i class="fa-solid fa-sitemap fa-lg fa-lg"></i> category Records
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+        <div class="table-responsive ">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">category Name</th>
+                <th scope="col">category Description</th>
+                <th scope="col">View</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
 
-<h3>Categories List</h3>
-
-{% for category in categories %}
-<div class="card">
-    <a href="{% url 'categories_detail' category.id %}">
-        <div class="card-content">
-            <span class="card-title">{{ category.name }}</span>
-            <p>Description: {{ category.description|linebreaks }}</p>
-
+            </thead>
+            <tbody>
+              {% for category in categories %}
+              <tr>
+                <tr>
+                  <td>{{ category.name}}</td>
+                  <td>{{ category.description }}</td>
+                  <td>
+                    <a class="btn btn btn-info" href="{% url 'categories_detail' category.id %}">
+                      <i class="fa-solid fa-eye fa-lg"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="btn btn-warning me-1" href="{% url 'categories_update' category.id %}">
+                      <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="btn btn-danger" href="{% url 'categories_delete' category.id %}">
+                      <i class="fa-solid fa-trash-can fa-lg"></i>
+                    </a>
+                  </td>
+  
+  
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
-    </a>
+        </p>
+      </div>
+    </div>
+    {% else %}
+    <h5 class="alert alert-primary ms-4 me-4">No categories available, to display</h5>
+    {% endif %}
+  </div>
 </div>
-
-{% endfor %}
 
 {% endblock %}

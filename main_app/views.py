@@ -73,7 +73,8 @@ class CategoryCreate(CreateView):
 
 class CategoryUpdate(UpdateView):
     model = Category
-    fields = '__all__'
+    fields = ['name', 'description']
+    success_url = '/categories'
 
 class CategoryDelete(DeleteView):
     model = Category
@@ -99,7 +100,7 @@ class ItemCreate(CreateView):
 
 class ItemUpdate(UpdateView):
   model = Item
-  fields = ['name', 'description', 'quantity_current', 'quantity_min','quantity_max']
+  fields = ['name', 'description', 'quantity_min','quantity_max']
 
   def form_valid(self, form):
         response = super().form_valid(form)

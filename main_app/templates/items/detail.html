@@ -3,82 +3,118 @@
 
 <h3>Item Details</h3>
 
+<div class="row row-cols-1 row-cols-md-2 mb-2 text-center border-primary">
+  <div class="col">
+    <div class="card">
+      <div class="card-header"> <span class="card-title"><b>Edit {{ item.name }}</b></span>
 
-<div class="card">
-  <div class="card-header"> <span class="card-title"><b>{{ item.name }}</b></span>
+      </div>
+      <div class="card-body">
 
-  </div>
-  <div class="card-body">
+        <p>Item Name: {{ item.name }}</p>
 
-    <p>Item Name: {{ item.name }}</p>
+        {% if item.quantity_current > item.quantity_min %}
+        <p>Quantity: {{ item.quantity_current }}</p>
+        {% else %}
+        <p>
+          There {% if item.quantity_current == 1 %} is {% else %} are {% endif %}
+          only
+          <span style="color: red">{{ item.quantity_current }}</span> remaining.
+          Please restock.
+        </p>
+        {% endif %}
+        <p>Minimum Quantity: {{ item.quantity_min }}</p>
+        <p>Maximum Quantity: {{ item.quantity_max }}</p>
+        <p>Description: {{ item.description|linebreaks }}</p>
+        <div class="card-action">
+          <a class="btn btn-warning me-1" href="{% url 'items_update' item.id %}">
+            <i class="fa-solid fa-pen-to-square fa-lg"></i>
+          </a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="btn btn-danger" href="{% url 'items_delete' item.id %}">
+            <i class="fa-solid fa-trash-can fa-lg"></i>
+          </a>
 
-    {% if item.quantity_current > item.quantity_min %}
-    <p>Quantity: {{ item.quantity_current }}</p>
-    {% else %}
-    <p>
-      There {% if item.quantity_current == 1 %} is {% else %} are {% endif %}
-      only
-      <span style="color: red">{{ item.quantity_current }}</span> remaining.
-      Please restock.
-    </p>
-    {% endif %}
-    <p>Minimum Quantity: {{ item.quantity_min }}</p>
-    <p>Maximum Quantity: {{ item.quantity_max }}</p>
-    <p>Description: {{ item.description|linebreaks }}</p>
-    <div class="card-action">
-      <a class="btn btn-warning" href="{% url 'items_update' item.id %}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
-      <a class="btn btn-danger" href="{% url 'items_delete' item.id %}">Delete</a>
-
+        </div>
+      </div>
     </div>
   </div>
+
+  <div class="col">
+    <div class="card">
+      <div class="card-header"> <span class="card-title"><b>Quantity change and log for {{ item.name }}</b></span>
+
+      </div>
+      <div class="card-body">
+
+        <p>
+          <form method="post">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm col" >
+                  {% csrf_token %}
+                      {{ form.as_p }}
+                      
+                </div>
+                <div class="col-sm" col align="left">
+                  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-gears fa-lg"></i></button>
+                </div>
+            
+              </div>
+            </div>
+            </form>
+        </p>
+
+        <p>
+          <div class="card bg-light ms-4 me-4 mb-4">
+            <div class="card-header">
+              <i class="fa-solid fa-gears fa-lg"></i> Recent quantity Change Log
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+              <div class="table-responsive ">
+                {% if last_quantity_changes %}
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Previous Count</th>
+                      <th>Current Count</th>
+                      <th>User</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tbody>
+                      {% for log in last_quantity_changes %}
+                      <tr>
+                        <td>{{ log.date_log }}</td>
+                        <td>{{ log.previous_count }}</td>
+                        <td>{{ log.change }}</td>
+                        <td>{{ log.user.username }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>No recent quantity changes.</p>
+                {% endif %}
+              </div>
+              </p>
+            </div>
+          </div>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div class="col s6">
-  <h3>Change Quantity</h3>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn">Change Quantity</button>
-  </form>
-</div>
-</div>
-</div>
 
-
-<!-- Quantity Tracker per Item -->
-<div class="col s6">
-  <h3>Recent Quantity Changes</h3>
-  {% if last_quantity_changes %}
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Previous Count</th>
-        <th>Current Count</th>
-        <th>User</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for log in last_quantity_changes %}
-      <tr>
-        <td>{{ log.date_log }}</td>
-        <td>{{ log.previous_count }}</td>
-        <td>{{ log.change }}</td>
-        <td>{{ log.user.username }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% else %}
-  <p>No recent quantity changes.</p>
-  {% endif %}
-</div>
-</div>
 
 <hr />
 <div class="text-center">
   <div class="alert alert-primary" role="alert">
-    <h4>Categories for Item : {{ item.name }}</h4>
+
   </div>
 </div>
 
@@ -88,7 +124,7 @@
   <div class="col">
     <div class="card mb-4 rounded-3 shadow-sm border-primary">
       <div class="card-header py-3 text-white bg-primary border-primary">
-        <h5 class="my-0 fw-normal">Tagged </h5>
+        <h5 class="my-0 fw-normal">Tagged Categories to {{ item.name }}</h5>
       </div>
 
       <div class="card-body">
@@ -127,7 +163,7 @@
   <div class="col">
     <div class="card mb-4 rounded-3 shadow-sm border-primary">
       <div class="card-header py-3 text-white bg-primary border-primary">
-        <h5 class="my-0 fw-normal">Available to be Tagged </h5>
+        <h5 class="my-0 fw-normal">Available categories to be tagged for {{ item.name }}</h5>
       </div>
 
       <div class="card-body">

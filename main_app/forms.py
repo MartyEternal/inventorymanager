@@ -32,5 +32,5 @@ class SignUpForm(UserCreationForm):
 class QuantityChangeForm(forms.ModelForm):
 	class Meta:
 		model = QuantityLog
-		fields = ['item', 'change']
+		fields = ['change']
 		

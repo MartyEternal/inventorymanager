@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -17,11 +18,12 @@ class Category(models.Model):
     # Create your models here.
 class Item(models.Model):
     name = models.CharField(max_length=100)
-    quantity_current = models.IntegerField()
+    quantity_current = models.IntegerField(default=0)
     quantity_min = models.IntegerField(default = 1)
     quantity_max = models.IntegerField()
-    description = models.TextField(max_length=250)
+    description = models.TextField(max_length=1000)
     categories = models.ManyToManyField(Category)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -32,6 +34,7 @@ class Item(models.Model):
 class QuantityLog(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     date_log = models.DateTimeField(auto_now_add=True)
+    previous_count = models.IntegerField()
     change = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 

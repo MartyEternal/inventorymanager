@@ -146,9 +146,9 @@ def items_details(request, item_id):
     categories_item_doesnt_have = Category.objects.exclude(id__in=id_list)
     last_quantity_changes = QuantityLog.objects.filter(item=item).order_by('-date_log')[:5]
 
-    for log in last_quantity_changes:
-        previous_logs = QuantityLog.objects.filter(item=item, date_log__lt=log.date_log).order_by('-date_log')
-        log.previous_count = previous_logs[0].change if previous_logs.exists() else item.quantity_current - log.change
+    # for log in last_quantity_changes:
+    #     previous_logs = QuantityLog.objects.filter(item=item, date_log__lt=log.date_log).order_by('-date_log')
+    #     log.previous_count = previous_logs[0].change if previous_logs.exists() else item.quantity_current - log.change
 
     if request.method == 'POST':
         form = QuantityChangeForm(request.POST)
@@ -157,13 +157,17 @@ def items_details(request, item_id):
             quantity_log.item = item
             quantity_log.user = request.user
             quantity_log.previous_count = item.quantity_current
-            item.quantity_current += quantity_log.change
+            item.quantity_current = quantity_log.change
             item.save()
             quantity_log.save()
             return redirect('detail', item_id=item_id)
     
     else:
         form = QuantityChangeForm()
+
+    for log in last_quantity_changes:
+        previous_logs = QuantityLog.objects.filter(item=item, date_log__lt=log.date_log).order_by('-date_log')
+        log.previous_count = previous_logs[0].change if previous_logs.exists() else item.quantity_current - log.change
 
     return render(request, 'items/detail.html', {
         'item':item, 
@@ -203,8 +207,9 @@ def unassoc_category(request, item_id, category_id):
 
 # history log stuff
 def history_log(request):
-    history = HistoryLog.objects.all()
-    return render(request, 'main_app/history_log.html', {'history': history})
+    history = HistoryLog.objects.all().order_by('-date_log')
+    quantity_logs = QuantityLog.objects.all().order_by('-date_log')
+    return render(request, 'main_app/history_log.html', {'history': history, 'logs': quantity_logs,})
 
 def change_quantity(request):
     if request.method == "POST":

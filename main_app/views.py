@@ -69,7 +69,7 @@ def categories_detail(request, category_id):
 
 class CategoryCreate(CreateView):
     model = Category
-    fields = '__all__'
+    fields = ['name', 'description']
 
 class CategoryUpdate(UpdateView):
     model = Category

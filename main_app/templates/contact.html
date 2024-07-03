@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <br>
+            <h3>Contact</h3>
+            <br>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <br>
+
+                <div class="mb-3">
+                    <label for="exampleTextarea" class="form-label">What do you need from us?</label>
+                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                </div>
+
+                <div class="text-end">
+                    <a href="{% url 'home' %}" class="btn btn-primary">Submit</a>
+                </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

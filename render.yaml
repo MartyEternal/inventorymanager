@@ -1,0 +1,22 @@
+databases:
+  - name: inventorymanager
+    plan: free
+    databaseName: inventorymanager
+    user: inventorymanager
+
+services:
+  - type: web
+    plan: free
+    name: inventorymanager
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn inventorymanager.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: inventorymanager
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4

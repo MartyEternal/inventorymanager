@@ -28,7 +28,7 @@ This application will be most useful in smaller to medium-sized businesses wanti
 ### Links
 
 ### Application
-[Inventory Management System](placeholder-link)
+[Inventory Management System](https://inventorymanager-78zc.onrender.com/)
 
 ### Trello 
 [Trello Board](https://trello.com/b/IqYfTffg/inventory-management-system)

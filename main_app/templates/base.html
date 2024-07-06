@@ -3,10 +3,15 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
   <title>Invinity</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  
+
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -15,77 +20,77 @@
       <a class="navbar-brand" href="{% url 'home' %}">
         <i class="fa-solid fa-synagogue fa-lg"></i> &nbsp;&nbsp;Invinity
       </a>
-  
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
+
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">
-                <i class="fa-solid fa-house fa-lg"></i> Home
-              </a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'items_create' %}">
-                <i class="fa-solid fa-circle-plus fa-lg"></i> Add Item
-              </a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'categories_create' %}">
-                <i class="fa-solid fa-file-circle-plus fa-lg"></i> Add category
-              </a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'categories_index' %}">
-                <i class="fa-solid fa-sitemap fa-lg"></i> All categories
-              </a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">
+              <i class="fa-solid fa-house fa-lg"></i> Home
+            </a>
+          </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'history_log' %}">
-                <i class="fa-solid fa-file-circle-plus fa-lg"></i> History Log
-              </a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">
-                <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i> Logout
-              </a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'items_create' %}">
+              <i class="fa-solid fa-circle-plus fa-lg"></i> Add Item
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'categories_create' %}">
+              <i class="fa-solid fa-file-circle-plus fa-lg"></i> Add category
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'categories_index' %}">
+              <i class="fa-solid fa-sitemap fa-lg"></i> All categories
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'history_log' %}">
+              <i class="fa-solid fa-file-circle-plus fa-lg"></i> History Log
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i> Logout
+            </a>
+          </li>
 
           {% else %}
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                aria-expanded="false">Features</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="{% url 'about' %}">About</a>
-                <a class="dropdown-item" href="{% url 'contact' %}">Contact</a>
-                <a class="dropdown-item" href="{% url 'pricing' %}">Pricing</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'register' %}">Register</a>
-            </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+              aria-expanded="false">Features</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'about' %}">About</a>
+              <a class="dropdown-item" href="{% url 'contact' %}">Contact</a>
+              <a class="dropdown-item" href="{% url 'pricing' %}">Pricing</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
+          </li>
 
           {% endif %}
         </ul>
-  
+
         {% if user.is_authenticated %}
-          <form class="d-flex" method="POST" action="{% url 'search' %}">
-            {% csrf_token %}
-            <input class="form-control me-sm-2" type="search" placeholder="Search" aria-label="Search" name="searched"/>
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-              Search
-            </button>
-          </form>
+        <form class="d-flex" method="POST" action="{% url 'search' %}">
+          {% csrf_token %}
+          <input class="form-control me-sm-2" type="search" placeholder="Search" aria-label="Search" name="searched" />
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
         {% endif %}
       </div>
     </div>

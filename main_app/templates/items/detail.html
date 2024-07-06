@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <br>
 <h3>Item Details</h3>
 
@@ -47,60 +48,60 @@
       <div class="card-body">
 
         <p>
-          <form method="post">
-            <div class="container">
-              <div class="row">
-                <div class="col-sm col" >
-                  {% csrf_token %}
-                      {{ form.as_p }}
-                      
-                </div>
-                <div class="col-sm" col align="left">
-                  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-gears fa-lg"></i></button>
-                </div>
-            
+        <form method="post">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm col">
+                {% csrf_token %}
+                {{ form.as_p }}
+
               </div>
+              <div class="col-sm" col align="left">
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-gears fa-lg"></i></button>
+              </div>
+
             </div>
-            </form>
+          </div>
+        </form>
         </p>
 
         <p>
-          <div class="card bg-light ms-4 me-4 mb-4">
-            <div class="card-header">
-              <i class="fa-solid fa-gears fa-lg"></i> Recent quantity Change Log
-            </div>
-            <div class="card-body">
-              <p class="card-text">
-              <div class="table-responsive ">
-                {% if last_quantity_changes %}
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Previous Count</th>
-                      <th>Current Count</th>
-                      <th>User</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tbody>
-                      {% for log in last_quantity_changes %}
-                      <tr>
-                        <td>{{ log.date_log }}</td>
-                        <td>{{ log.previous_count }}</td>
-                        <td>{{ log.change }}</td>
-                        <td>{{ log.user.username }}</td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                </table>
-                {% else %}
-                <p>No recent quantity changes.</p>
-                {% endif %}
-              </div>
-              </p>
-            </div>
+        <div class="card bg-light ms-4 me-4 mb-4">
+          <div class="card-header">
+            <i class="fa-solid fa-gears fa-lg"></i> Recent quantity Change Log
           </div>
+          <div class="card-body">
+            <p class="card-text">
+            <div class="table-responsive ">
+              {% if last_quantity_changes %}
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Previous Count</th>
+                    <th>Current Count</th>
+                    <th>User</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tbody>
+                  {% for log in last_quantity_changes %}
+                  <tr>
+                    <td>{{ log.date_log }}</td>
+                    <td>{{ log.previous_count }}</td>
+                    <td>{{ log.change }}</td>
+                    <td>{{ log.user.username }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>No recent quantity changes.</p>
+              {% endif %}
+            </div>
+            </p>
+          </div>
+        </div>
         </p>
 
       </div>
@@ -198,12 +199,6 @@
       {% endif %}
     </div>
   </div>
-
 </div>
-
-
-
-
-
 
 {% endblock %}
